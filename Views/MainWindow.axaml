@@ -1,0 +1,111 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LifeManager.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LifeManager.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        MinWidth="840"
+        MinHeight="450"
+		Background="#3d3f58"
+        Icon="/Assets/avalonia-logo.ico"
+        xmlns:infrastructure="clr-namespace:LifeManager.Infrastructure"
+        Title="LifeManager">
+	<Design.DataContext>
+		<vm:MainWindowViewModel />
+	</Design.DataContext>
+	<Window.Styles>
+		<!-- ListBox样式 -->
+		<Style Selector="ListBox.mainListBox">
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="Width" Value="120" />
+			<Setter Property="Background" Value="#3d3f58" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="BorderBrush" Value="#2b2c42" />
+			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+			<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border
+						Width="{TemplateBinding Width}"
+                        x:Name="Bd" 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        ClipToBounds="True"
+                        CornerRadius="{StaticResource OverlayCornerRadius}">
+						<ScrollViewer Focusable="false">
+							<ItemsPresenter />
+						</ScrollViewer>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<!-- ListBoxItem 样式嵌套 -->
+		<Style Selector="ListBox.mainListBox > ListBoxItem">
+			<Setter Property="Width" Value="120" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="BorderBrush" Value="#494a66" />
+			<Setter Property="BorderThickness" Value="0,1,0,0" />
+			<Setter Property="FontSize" Value="16" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="Margin" Value="0,0,0,0" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border
+						Padding="{TemplateBinding Padding}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						Background ="{TemplateBinding Background}"
+						BorderThickness="{TemplateBinding BorderThickness}">
+						<Border.Styles>
+							<Style Selector="Border:pointerover">
+								<Setter Property="Background" Value="#515368" />
+							</Style>
+						</Border.Styles>
+						<StackPanel Orientation="Horizontal">
+							<Border
+							    x:Name="border_vi"
+								Width="2"
+								Background="#2fcfe9"
+								IsVisible="False"
+								 Margin="2">
+								</Border>
+							<ContentPresenter
+								Content="{TemplateBinding Content}"
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						</StackPanel>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		<Style Selector="ListBoxItem:selected">
+			<Setter Property="Background" Value="#313348" />
+			<Setter Property="Foreground"  Value="#2fcfe9" />
+		</Style>
+
+		<Style Selector="ListBoxItem:selected Border#border_vi" >
+			<Setter Property="IsVisible" Value="True" />
+		</Style>
+	</Window.Styles>
+	<Grid>
+		<Viewbox x:Name="mainViewBox" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="Uniform">
+			
+			<Grid Width="840" Height="420" ColumnDefinitions="120,*" RowDefinitions="30,*">
+				<StackPanel Orientation="Horizontal"   Grid.Row="0" VerticalAlignment="Center" Background="WhiteSmoke" Margin="5,0,0,0" Grid.Column="0" Grid.ColumnSpan="2">
+					<CheckBox Content="全部" IsChecked="{Binding IsAll}" Background="Transparent" />
+					<DatePicker x:Name="datePicker"  MonthFormat="MM月" SelectedDateChanged="DatePicker_SelectedDateChanged" DayFormat="ddd dd日" YearFormat="yyyy年" Margin="10,0,0,0"/>
+
+				</StackPanel>
+				<ListBox x:Name="DemoItemsControl" Classes ="mainListBox" Grid.Column="0" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left"
+                         ItemsSource="{Binding Definitions}"
+                         SelectedIndex="0" SelectionChanged="ListBox_SelectionChanged">
+				</ListBox>
+				<ContentControl x:Name="DemoContentControl" Margin="5,0,5,0" Grid.Column="1" Grid.Row="2" Grid.RowSpan="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="#3d3f58" />
+			</Grid>
+		</Viewbox>
+	</Grid>
+</Window>
