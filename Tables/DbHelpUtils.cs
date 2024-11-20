@@ -19,7 +19,7 @@ namespace LifeManager.Tables
             //表可以新增字段， 修改和删除字段没有用
             //await db.CreateTableAsync<Record>();
             //await db.CreateTableAsync<ConsumeType>();
-            //await db.CreateTableAsync<TaskItem>();
+            await db.CreateTableAsync<PayItem>();
             await db.CreateTableAsync<ToDoItem>();
         }
 

@@ -2,12 +2,9 @@
 using CommunityToolkit.Mvvm.Messaging;
 using LifeManager.Infrastructure;
 using LifeManager.Message;
-using LifeManager.Models;
 using LifeManager.Tables;
 using LifeManager.Utils;
 using System;
-using System.Security.AccessControl;
-using Tmds.DBus.Protocol;
 
 namespace LifeManager.ViewModels
 {
@@ -34,7 +31,8 @@ namespace LifeManager.ViewModels
         public ExampleDefinition[] Definitions { get; } = new ExampleDefinition[]
         {
             new ExampleDefinition("待办", typeof(ToDoList)),
-            new ExampleDefinition("笔记", typeof(Notes))
+            new ExampleDefinition("笔记", typeof(Notes)),
+            new ExampleDefinition("消费统计", typeof(PayPage))
         };
 
         [ObservableProperty]

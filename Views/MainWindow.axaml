@@ -9,7 +9,7 @@
         MinWidth="840"
         MinHeight="450"
 		Background="#3d3f58"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/logo.ico"
         xmlns:infrastructure="clr-namespace:LifeManager.Infrastructure"
         Title="LifeManager">
 	<Design.DataContext>
