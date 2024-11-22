@@ -49,10 +49,18 @@ namespace LifeManager.ViewModels
             //从数据库读取数据并加载
             Pays.Clear();
             IEnumerable<PayItem> records = await DbHelpUtils.QueryRecordAsync<PayItem>();
-
             if (!Common.IsAll)
             {
-                records = records.Where(x => x.Date == Common.SelectedDateTime);
+                string format = "yyyy-MM-dd"; // 假设你的日期格式是 "yyyy-MM-dd"
+                if (DateTime.TryParseExact(Common.SelectedDateTime, format, null, System.Globalization.DateTimeStyles.None, out DateTime selectedDateTime) &&
+                    DateTime.TryParseExact(Common.SelectedDateTimeEnd, format, null, System.Globalization.DateTimeStyles.None, out DateTime selectedDateTimeEnd))
+                {
+                    records = records.Where(x =>
+                        DateTime.TryParseExact(x.Date, format, null, System.Globalization.DateTimeStyles.None, out DateTime createDate) &&
+                        createDate >= selectedDateTime &&
+                        createDate <= selectedDateTimeEnd);
+                }
+                //records = records.Where(x => x.Date == Common.SelectedDateTime);
             }
             foreach (var record in records)
             {

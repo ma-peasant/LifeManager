@@ -15,6 +15,16 @@ namespace LifeManager.ViewModels
 {
     public partial class NotesViewModel : ViewModelBase
     {
+
+        [ObservableProperty]
+        public string? _content;
+
+        [ObservableProperty]
+        public NoteBase? selectNote;
+
+        [ObservableProperty]
+        public bool? isEditing;
+
         private ObservableCollection<NoteBase> _noteTitles;
         public NotesViewModel()
         {
@@ -67,14 +77,7 @@ namespace LifeManager.ViewModels
             set { SetProperty(ref _noteTitles, value);} 
         }
 
-        [ObservableProperty]
-        public string? _content;
-
-        [ObservableProperty]
-        public NoteBase? selectNote;
-
-        [ObservableProperty]
-        public bool? isEditing;
+      
 
         [RelayCommand]
         public void SaveContent()

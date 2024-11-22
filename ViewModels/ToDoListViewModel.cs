@@ -21,12 +21,7 @@ namespace LifeManager.ViewModels
         public ToDoListViewModel()
         {
             // We can use this to add some items for the designer. 
-            // You can also use a DesignTime-ViewModel
-            if (Design.IsDesignMode)
-            {
-              
-            }
-
+            if (Design.IsDesignMode) { }
             LoadData();
             WeakReferenceMessenger.Default.Register<IsAllMessage>(this, (r, m) =>
             {
@@ -42,17 +37,24 @@ namespace LifeManager.ViewModels
 
             if (!Common.IsAll)
             {
-                records = records.Where(x => x.CreateDate == Common.SelectedDateTime);
+                string format = "yyyy-MM-dd"; // 假设你的日期格式是 "yyyy-MM-dd"
+                if (DateTime.TryParseExact(Common.SelectedDateTime, format, null, System.Globalization.DateTimeStyles.None, out DateTime selectedDateTime) &&
+                    DateTime.TryParseExact(Common.SelectedDateTimeEnd, format, null, System.Globalization.DateTimeStyles.None, out DateTime selectedDateTimeEnd))
+                {
+                    records = records.Where(x =>
+                        DateTime.TryParseExact(x.CreateDate, format, null, System.Globalization.DateTimeStyles.None, out DateTime createDate) &&
+                        createDate >= selectedDateTime &&
+                        createDate <= selectedDateTimeEnd);
+                }
+
+                //records = records.Where(x => x.CreateDate == Common.SelectedDateTime);
             }
             foreach (var record in records)
             {
                 record.PropertyChanged += Item_PropertyChanged;
                 ToDoItems.Add(record);
             }
-
-
         }
-
 
         /// <summary>
         /// Gets a collection of <see cref="ToDoItem"/> which allows adding and removing items

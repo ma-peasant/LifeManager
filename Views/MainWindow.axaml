@@ -98,7 +98,7 @@
 				<StackPanel Orientation="Horizontal"   Grid.Row="0" VerticalAlignment="Center" Background="WhiteSmoke" Margin="5,0,0,0" Grid.Column="0" Grid.ColumnSpan="2">
 					<CheckBox Content="全部" IsChecked="{Binding IsAll}" Background="Transparent" />
 					<DatePicker x:Name="datePicker"  MonthFormat="MM月" SelectedDateChanged="DatePicker_SelectedDateChanged" DayFormat="ddd dd日" YearFormat="yyyy年" Margin="10,0,0,0"/>
-
+					<DatePicker x:Name="datePickerEnd"  MonthFormat="MM月" SelectedDateChanged="DatePickerEnd_SelectedDateChanged" DayFormat="ddd dd日" YearFormat="yyyy年" Margin="10,0,0,0"/>
 				</StackPanel>
 				<ListBox x:Name="DemoItemsControl" Classes ="mainListBox" Grid.Column="0" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Left"
                          ItemsSource="{Binding Definitions}"

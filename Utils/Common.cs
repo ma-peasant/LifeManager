@@ -10,5 +10,6 @@ namespace LifeManager.Utils
     {
         public static bool IsAll = false;
         public static string SelectedDateTime = DateTime.Now.ToString("yyyy-MM-dddd");
+        public static string SelectedDateTimeEnd = DateTime.Now.ToString("yyyy-MM-dddd");
     }
 }
