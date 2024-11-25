@@ -16,9 +16,16 @@
 		<vm:PayViewModel />
 	</Design.DataContext>
 
+
 	<!-- We give a name to the root grid in order to access it later -->
-	<Grid Width ="600" Height ="300"  ColumnDefinitions="*,100"
+	<Grid  ColumnDefinitions="*,100"
+		   Margin="10,0,10,0"
           x:Name="Root">
+		<Grid.KeyBindings>
+			<KeyBinding Gesture="Ctrl+N" Command="{Binding AddDataCommand}" />
+			<KeyBinding Gesture="Ctrl+D"  Command="{Binding DeleteItemCommand}"
+						CommandParameter="{Binding #dataGrid.SelectedItem}"/>
+		</Grid.KeyBindings>
 		<DataGrid  x:Name="dataGrid"  ItemsSource="{Binding Pays}" Grid.Column="0" 
 					 CanUserReorderColumns="True"
           CanUserResizeColumns="True"
@@ -36,16 +43,17 @@
 					<MenuItem
                         Command="{Binding DeleteItemCommand}" 
 						CommandParameter="{Binding #dataGrid.SelectedItem}"
-                        Header="删除" />
+                        Header="删除"/>
 				</ContextMenu>
 				</DataGrid.ContextMenu>
 		</DataGrid>
 		<StackPanel Grid.Column="1" Orientation="Vertical">
 			<Button
 		 x:Name="Add" Grid.Row="0" Grid.Column="1" MinWidth="60" MinHeight="30"
-		 Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" Background="ForestGreen"
+		 Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center"
 		 Command="{Binding AddDataCommand}"
-		 Content="添加" FontSize="16" Foreground="White" />
+		 Content="添加" FontFamily="黑体"  FontSize="16" Foreground="White" >
+			</Button>
 			<Grid HorizontalAlignment="Left">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="0.7*" />
@@ -81,5 +89,5 @@
                    />
 			</Grid>
 		</StackPanel>
-	</Grid>
+		</Grid>
 </HeaderedContentControl>

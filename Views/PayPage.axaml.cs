@@ -26,10 +26,15 @@ public partial class PayPage : HeaderedContentControl
                 dataGrid.BeginEdit();                        // 开始编辑
             });
         };
+        this.Loaded += PayPage_Loaded;
     }
 
+    private void PayPage_Loaded(object? sender, RoutedEventArgs e)
+    {
+        this.dataGrid.Focus();  //需要获取焦点才可以使用快捷键
+    }
 
-        private void OnTextBoxKeyDown(object? sender, KeyEventArgs e)
+    private void OnTextBoxKeyDown(object? sender, KeyEventArgs e)
     {
         // 允许输入的按键：数字、退格、删除、小数点、方向键
         if (!(e.Key >= Key.D0 && e.Key <= Key.D9) &&   // 数字键 0-9

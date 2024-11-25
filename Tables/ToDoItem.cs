@@ -28,7 +28,6 @@ namespace LifeManager.Tables
                     //SetProperty内部会自动触发OnPropertyChanged事件
                     SetProperty(ref _isChecked, value);
                 }
-
             }
         }
         [Column("todo_content")]

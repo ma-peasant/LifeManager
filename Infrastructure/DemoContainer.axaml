@@ -11,9 +11,9 @@
 			<RowDefinition Height="289*" />
 		</Grid.RowDefinitions>
 		<TextBlock
-            x:Name="TitleElement" Margin="8,20,0,0" FontSize="16" Foreground="#feffff" />
+            x:Name="TitleElement" Margin="8,20,0,0" FontSize="16"  />
 		<Rectangle
-            Grid.ColumnSpan="2" Height="1" VerticalAlignment="Bottom" Fill="#323347" />
+            Grid.ColumnSpan="2" Height="1" VerticalAlignment="Bottom" />
 		<ContentControl
             x:Name="ContentControl" Grid.Row="1" Grid.RowSpan="2" Margin="4" />
 	</Grid>

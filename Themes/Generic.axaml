@@ -1,4 +1,30 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <!-- Add Resources Here -->
+	<ControlTheme x:Key ="demopage" TargetType="HeaderedContentControl">
+		<Setter Property="UseLayoutRounding" Value="True" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid>
+					<Border
+						x:Name="RootBorder"
+						Background="{TemplateBinding Background}"
+						ClipToBounds="True"
+						CornerRadius="8">
+						<Grid>
+							<ContentControl
+								Margin="20" VerticalAlignment="Top"
+								Content="{TemplateBinding Header}"
+								FontSize="32"  />
+							<ContentControl
+								Grid.Row="1"
+								Margin="{TemplateBinding Padding}"
+								HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+								Content="{TemplateBinding Content}" />
+						</Grid>
+					</Border>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
 </ResourceDictionary>
