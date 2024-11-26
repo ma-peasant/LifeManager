@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using LifeManager.Message;
 using LifeManager.Models;
+using LifeManager.Tables;
 using LifeManager.Utils;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,9 @@ namespace LifeManager.ViewModels
             // You can also use a DesignTime-ViewModel
             if (Design.IsDesignMode)
             {
-                
+                NoteTitles = new ObservableCollection<NoteBase>(new[] {
+                new NoteBase() { Title = "Hello"},
+                new NoteBase() { Title = "Avalonia"}});
             }
             this.IsEditing = false;
             NoteTitles  = new ObservableCollection<NoteBase>();
@@ -59,7 +62,10 @@ namespace LifeManager.ViewModels
             }
             if (NoteTitles.Count > 0)
             {
-                this.Content = FileUtils.ReadTxtFile(NoteTitles[0].Path);
+                WeakReferenceMessenger.Default.Send(new DefaultSelectedNumberMessage()
+                {
+                    SelectedNumber = 0
+                });
             }
         }
 

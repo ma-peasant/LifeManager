@@ -2,9 +2,13 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.VisualTree;
+using CommunityToolkit.Mvvm.Messaging;
+using LifeManager.Message;
 using LifeManager.Models;
+using LifeManager.Tables;
 using LifeManager.Utils;
 using LifeManager.ViewModels;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace LifeManager;
@@ -14,13 +18,25 @@ public partial class Notes : HeaderedContentControl
     public Notes()
     {
         InitializeComponent();
+    
         this.DataContext = new NotesViewModel();
         this.Loaded += Notes_Loaded;
+        this.Unloaded += Notes_Unloaded;
+    }
+
+    private void Notes_Unloaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        WeakReferenceMessenger.Default.Unregister<DefaultSelectedNumberMessage>(this);
     }
 
     private void Notes_Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         this.Lb_Notes.SelectedIndex = 0;
+
+        WeakReferenceMessenger.Default.Register<DefaultSelectedNumberMessage>(this, (r, m) =>
+        {
+            this.Lb_Notes.SelectedIndex = m.SelectedNumber;
+        });
     }
 
     private void ListBox_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)

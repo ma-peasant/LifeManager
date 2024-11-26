@@ -1,93 +1,119 @@
-<HeaderedContentControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:lifeManager="clr-namespace:LifeManager.Infrastructure"
-		     xmlns:vm="using:LifeManager.ViewModels"
-			 xmlns:table="clr-namespace:LifeManager.Tables;assembly=LifeManager"
-			 Theme="{StaticResource demopage}"
-			 x:DataType="vm:PayViewModel"
-             x:Class="LifeManager.PayPage">
+<HeaderedContentControl
+    x:Class="LifeManager.PayPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lifeManager="clr-namespace:LifeManager.Infrastructure"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:table="clr-namespace:LifeManager.Tables;assembly=LifeManager"
+    xmlns:vm="using:LifeManager.ViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:PayViewModel"
+    Theme="{StaticResource demopage}"
+    mc:Ignorable="d">
 
-	<Design.DataContext>
-		<!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:PayViewModel />
-	</Design.DataContext>
+    <Design.DataContext>
+        <!--
+            This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+        -->
+        <vm:PayViewModel />
+    </Design.DataContext>
 
 
-	<!-- We give a name to the root grid in order to access it later -->
-	<Grid  ColumnDefinitions="*,100"
-		   Margin="10,0,10,0"
-          x:Name="Root">
-		<Grid.KeyBindings>
-			<KeyBinding Gesture="Ctrl+N" Command="{Binding AddDataCommand}" />
-			<KeyBinding Gesture="Ctrl+D"  Command="{Binding DeleteItemCommand}"
-						CommandParameter="{Binding #dataGrid.SelectedItem}"/>
-		</Grid.KeyBindings>
-		<DataGrid  x:Name="dataGrid"  ItemsSource="{Binding Pays}" Grid.Column="0" 
-					 CanUserReorderColumns="True"
-          CanUserResizeColumns="True"
-          CanUserSortColumns="False"
-          GridLinesVisibility="All" AutoGenerateColumns="False"
-          BorderThickness="1" BorderBrush="Gray">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="消费内容"  Binding="{Binding Content}" />
-				<DataGridTextColumn Header="消费金额" Binding="{Binding Amount}"/>
-				<DataGridTextColumn Header="消费日期" Binding="{Binding Date}" />
-				<DataGridCheckBoxColumn Header="消费类型(勾选为收入)" Binding="{Binding Type}" />
-			</DataGrid.Columns>
-			<DataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem
-                        Command="{Binding DeleteItemCommand}" 
-						CommandParameter="{Binding #dataGrid.SelectedItem}"
-                        Header="删除"/>
-				</ContextMenu>
-				</DataGrid.ContextMenu>
-		</DataGrid>
-		<StackPanel Grid.Column="1" Orientation="Vertical">
-			<Button
-		 x:Name="Add" Grid.Row="0" Grid.Column="1" MinWidth="60" MinHeight="30"
-		 Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center"
-		 Command="{Binding AddDataCommand}"
-		 Content="添加" FontFamily="黑体"  FontSize="16" Foreground="White" >
-			</Button>
-			<Grid HorizontalAlignment="Left">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="0.7*" />
-					<ColumnDefinition Width="0.3*" />
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
-					<RowDefinition Height="*" />
-					<RowDefinition Height="*" />
-				</Grid.RowDefinitions>
-				<Label
-                    Grid.Row="0" Grid.Column="0"  Background="Transparent"
-                    Content="开支:"
-                    />
-				<Label
-                    Name="lab_low" Grid.Row="0" Grid.Column="1" Width="50" 
-                    Content="{Binding PayMoney}"
-                />
-				<Label
-                    Grid.Row="1" Grid.Column="0"  BorderThickness="0"
-                    Content="收入:"
-                  />
-				<Label
-                    Name="lab_com" Grid.Row="1" Grid.Column="1" Width="50" 
-                    Content="{Binding IncomeMoney}"
-                    />
-				<Label
-                    Grid.Row="2" Grid.Column="0"  Content="净收入: "
-                    />
-				<Label
-                    Name="lab_high" Grid.Row="2" Grid.Column="1" Width="50" 
-                    Content="{Binding AllMoney}"
-                   />
-			</Grid>
-		</StackPanel>
-		</Grid>
+    <!--  We give a name to the root grid in order to access it later  -->
+    <Grid
+        x:Name="Root"
+        Margin="10,0,10,0"
+        ColumnDefinitions="*,100">
+        <Grid.KeyBindings>
+            <KeyBinding Command="{Binding AddDataCommand}" Gesture="Ctrl+N" />
+            <KeyBinding
+                Command="{Binding DeleteItemCommand}"
+                CommandParameter="{Binding #dataGrid.SelectedItem}"
+                Gesture="Ctrl+D" />
+        </Grid.KeyBindings>
+        <DataGrid
+            x:Name="dataGrid"
+            Grid.Column="0"
+            AutoGenerateColumns="False"
+            BorderBrush="Gray"
+            BorderThickness="1"
+            CanUserReorderColumns="True"
+            CanUserResizeColumns="True"
+            CanUserSortColumns="False"
+            GridLinesVisibility="All"
+            ItemsSource="{Binding Pays}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Content}" Header="消费内容" />
+                <DataGridTextColumn Binding="{Binding Amount}" Header="消费金额" />
+                <DataGridTextColumn Binding="{Binding Date}" Header="消费日期" />
+                <DataGridCheckBoxColumn Binding="{Binding Type}" Header="消费类型(勾选为收入)" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Command="{Binding DeleteItemCommand}"
+                        CommandParameter="{Binding #dataGrid.SelectedItem}"
+                        Header="删除" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <StackPanel
+            Grid.Column="1"
+            Margin="10,5,0,0"
+            Orientation="Vertical">
+            <Button
+                x:Name="Add"
+                Grid.Row="0"
+                Grid.Column="1"
+                MinWidth="60"
+                MinHeight="30"
+                Margin="5,0,0,0"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Command="{Binding AddDataCommand}"
+                Content="添加"
+                FontFamily="黑体"
+                FontSize="16"
+                Foreground="White" />
+            <Grid HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Background="Transparent"
+                    Content="开支:" />
+                <Label
+                    Name="lab_low"
+                    Grid.Row="1"
+                    Width="50"
+                    Content="{Binding PayMoney}" />
+                <Label
+                    Grid.Row="2"
+                    BorderThickness="0"
+                    Content="收入:" />
+                <Label
+                    Name="lab_com"
+                    Grid.Row="3"
+                    Width="50"
+                    Content="{Binding IncomeMoney}" />
+                <Label Grid.Row="4" Content="净收入: " />
+                <Label
+                    Name="lab_high"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Width="50"
+                    Content="{Binding AllMoney}" />
+            </Grid>
+        </StackPanel>
+    </Grid>
 </HeaderedContentControl>

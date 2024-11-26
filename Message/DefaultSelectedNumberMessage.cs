@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LifeManager.Message
 {
-    public  class DefaultSelectedNumberMessage
+    public  class IsAllMessage
     {
-        public int SelectedNumber { get; set; }
+        public bool IsAll { get; set; }
     }
 }
