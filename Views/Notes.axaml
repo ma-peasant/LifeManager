@@ -38,7 +38,6 @@
                     <Setter Property="Height" Value="16" />
                 </Style>
                 <Style Selector="ListBoxItem:selected TextBox.class1">
-                    <Setter Property="FontSize" Value="16" />
                     <Setter Property="Foreground" Value="#3c8dbc" />
                 </Style>
                 <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
@@ -54,6 +53,7 @@
                         BorderThickness="0"
                         DoubleTapped="Border_DoubleTapped">
                         <TextBox
+                          FontSize="14"
                             Background="Transparent"
                             BorderBrush="Transparent"
                             Classes="class1"
